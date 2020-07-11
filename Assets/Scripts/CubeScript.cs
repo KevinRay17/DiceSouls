@@ -32,13 +32,21 @@ public class CubeScript : MonoBehaviour
         D6[Vector3.forward] = 3;
         D6[Vector3.back] = 4;
 
-       
+      
+
     }
 
     void Start()
     {
+        if (gameObject.tag == "P1")
+        {
+            GetComponent<MeshRenderer>().material = Resources.Load<Material>("Mats/Demo");
+        }
+        else
+        {
+            GetComponent<MeshRenderer>().material = Resources.Load<Material>("Mats/Soul");
+        }
 
-   
 
     }
 
