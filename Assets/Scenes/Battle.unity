@@ -361,8 +361,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  P1DicePool: []
-  P1Hand: []
+  P1DiscardPool: []
+  P2DiscardPool: []
   P1HealthBar: {fileID: 348351118}
   P2HealthBar: {fileID: 642158245}
 --- !u!4 &105427201
@@ -3668,7 +3668,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -174.5}
+  m_AnchoredPosition: {x: 0, y: -171.8}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1913159671

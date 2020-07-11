@@ -137,6 +137,17 @@ public class Roll : MonoBehaviour
         loadDie.transform.position = loadTransform.position + Vector3.up / 2;
         LoadedDice.Add(loadDie);
 
+        //Remove from Hand
+        if (BattleManager.playerTurn == "P1")
+        {
+            BattleManager.P1Hand.Remove(loadDie);
+        }
+        else
+        {
+            BattleManager.P2Hand.Remove(loadDie);
+        }
+
+
     }
 
 
@@ -159,6 +170,14 @@ public class Roll : MonoBehaviour
         setDie.GetComponent<Rigidbody>().useGravity = true;
         setDie.GetComponent<Rigidbody>().velocity = Vector3.zero;
         setDie.transform.position = setTransform.position + Vector3.up/2;
+
+        //Remove from Hand
+        if (BattleManager.playerTurn == "P1") {
+            BattleManager.P1Hand.Remove(setDie);
+                } else
+        {
+            BattleManager.P2Hand.Remove(setDie);
+        }
 
 
         //Resolve Set Effects

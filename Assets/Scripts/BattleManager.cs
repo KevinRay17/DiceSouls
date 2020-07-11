@@ -21,8 +21,11 @@ public class BattleManager : MonoBehaviour
     public static List<GameObject> P2DicePool = new List<GameObject>();
     public static List<GameObject> P1Hand = new List<GameObject>();
     public static List<GameObject> P2Hand = new List<GameObject>();
-    public static List<GameObject> P1DiscardPool = new List<GameObject>();
-    public static List<GameObject> P2DiscardPool = new List<GameObject>();
+    public  List<GameObject> P1DiscardPool = new List<GameObject>();
+    public  List<GameObject> P2DiscardPool = new List<GameObject>();
+
+    public static List<GameObject> P1FieldDice = new List<GameObject>();
+    public static List<GameObject> P2FieldDice = new List<GameObject>();
 
 
 
@@ -54,16 +57,19 @@ public class BattleManager : MonoBehaviour
     int turnCounter = 0;
     int roundCounter = 1;
     int startPlayer;
+
+
+
     // Start is called before the first frame update
     void Start()
     {
-
         //Randomize PlayerStart
         startPlayer = Random.Range(1, 3);
         if (startPlayer <= 1)
         {
             playerTurn = "P1";
-        } else
+        }
+        else
         {
             playerTurn = "P2";
         }
@@ -101,26 +107,28 @@ public class BattleManager : MonoBehaviour
 
         for (int i = 0; i < MyDeck.Deck.Count; i++)
         {
-            P1DicePool.Add(MyDeck.Deck[i]);
+            GameObject instancedDie = Instantiate(MyDeck.Deck[i]);
+            P1DicePool.Add(instancedDie);
+            instancedDie.SetActive(false);
+         
         }
 
         for (int i = 0; i < MyDeck.Deck.Count; i++)
         {
-            P2DicePool.Add(MyDeck.Deck[i]);
+            GameObject instancedDie = Instantiate(MyDeck.Deck[i]);
+            P2DicePool.Add(instancedDie);
+            instancedDie.SetActive(false);
         }
         P1CurrentHealth = 50;
         P2CurrentHealth = 50;
 
 
-        StartCoroutine(FirstDraw());
+        StartCoroutine(DrawHand());
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(P1AttackTotal);
-        Debug.Log(P2AttackTotal);
 
 
 
@@ -128,55 +136,64 @@ public class BattleManager : MonoBehaviour
 
     public void Resolve()
     {
-        if (playerTurn == "P2") 
+        if (playerTurn == "P2")
         {
             //Player 1 Attacks
             foreach (GameObject d in RolledAttackDiceP1)
             {
                 P1AttackTotal += d.GetComponent<CubeScript>().rollNumber;
-            }
-            foreach(GameObject d in RolledDefenseDiceP2)
-            {
-                P2DefenseTotal += d.GetComponent<CubeScript>().rollNumber;
-            }
-            //Player 2 Attacks
-            foreach (GameObject d in RolledAttackDiceP2)
-            {
-                P2AttackTotal += d.GetComponent<CubeScript>().rollNumber;
-            }
-            foreach (GameObject d in RolledDefenseDiceP1)
-            {
-                P1DefenseTotal += d.GetComponent<CubeScript>().rollNumber;
-            }
-
-
-            //Player 1 Attack Animation
-            StartCoroutine(DamageP2ToP1());          
-        } else
-        {
-            //Player 2 Attacks
-            foreach (GameObject d in RolledAttackDiceP2)
-            {
-                P2AttackTotal += d.GetComponent<CubeScript>().rollNumber;
-            }
-            foreach (GameObject d in RolledDefenseDiceP1)
-            {
-                P1DefenseTotal += d.GetComponent<CubeScript>().rollNumber;
-            }
-            //Player 1 Attacks
-            foreach (GameObject d in RolledAttackDiceP1)
-            {
-                P1AttackTotal += d.GetComponent<CubeScript>().rollNumber;
+                P1FieldDice.Add(d);
             }
             foreach (GameObject d in RolledDefenseDiceP2)
             {
                 P2DefenseTotal += d.GetComponent<CubeScript>().rollNumber;
+                P2FieldDice.Add(d);
+            }
+            //Player 2 Attacks
+            foreach (GameObject d in RolledAttackDiceP2)
+            {
+                P2AttackTotal += d.GetComponent<CubeScript>().rollNumber;
+                P2FieldDice.Add(d);
+            }
+            foreach (GameObject d in RolledDefenseDiceP1)
+            {
+                P1DefenseTotal += d.GetComponent<CubeScript>().rollNumber;
+                P1FieldDice.Add(d);
+            }
+
+
+            //Player 1 Attack Animation
+            StartCoroutine(DamageP2ToP1());
+        }
+        else
+        {
+            //Player 2 Attacks
+            foreach (GameObject d in RolledAttackDiceP2)
+            {
+                P2AttackTotal += d.GetComponent<CubeScript>().rollNumber;
+                P2FieldDice.Add(d);
+            }
+            foreach (GameObject d in RolledDefenseDiceP1)
+            {
+                P1DefenseTotal += d.GetComponent<CubeScript>().rollNumber;
+                P1FieldDice.Add(d);
+            }
+            //Player 1 Attacks
+            foreach (GameObject d in RolledAttackDiceP1)
+            {
+                P1AttackTotal += d.GetComponent<CubeScript>().rollNumber;
+                P1FieldDice.Add(d);
+            }
+            foreach (GameObject d in RolledDefenseDiceP2)
+            {
+                P2DefenseTotal += d.GetComponent<CubeScript>().rollNumber;
+                P2FieldDice.Add(d);
             }
 
 
             //Player 2 Attack Animation
             StartCoroutine(DamageP1ToP2());
-        }  
+        }
         turnCounter = 0;
         roundCounter++;
     }
@@ -188,7 +205,7 @@ public class BattleManager : MonoBehaviour
     {
 
         //Player 1 attacks player 2
-        float newHealth = P2CurrentHealth - Mathf.Max((P1AttackTotal - P2DefenseTotal),0);
+        float newHealth = P2CurrentHealth - Mathf.Max((P1AttackTotal - P2DefenseTotal), 0);
         float oldHealth = P2CurrentHealth;
         float t = 0;
         while (t < 1)
@@ -211,15 +228,15 @@ public class BattleManager : MonoBehaviour
             P1HealthBar.fillAmount = P1CurrentHealth / 50;
             t += Time.deltaTime * 2;
             yield return 0;
-         }
+        }
 
-            P1CurrentHealth = newHealth2;
-            P2AttackTotal = 0;
-            P1DefenseTotal = 0;
+        P1CurrentHealth = newHealth2;
+        P2AttackTotal = 0;
+        P1DefenseTotal = 0;
 
         Reset();
     }
-    
+
 
     //Damage Player 1 first then player 2
     IEnumerator DamageP1ToP2()
@@ -254,6 +271,7 @@ public class BattleManager : MonoBehaviour
         }
 
         Reset();
+        //startTurn();
 
     }
 
@@ -262,9 +280,27 @@ public class BattleManager : MonoBehaviour
     {
 
         //if I have dice remaining
-        if (P1DicePool.Count > 0) {
+        if (P1DicePool.Count > 0)
+        {
             //if I dont exceed max hand size
-            if (P1Hand.Count < 10) {
+            if (P1Hand.Count < 10)
+            {
+                //pull a random card from deck
+                int pull = Random.Range(0, P1DicePool.Count);
+                StartCoroutine(RollToHand(P1DicePool[pull]));
+                P1DicePool.RemoveAt(pull);
+            }
+        } else
+        { //shuffle
+            foreach (GameObject d in P1DiscardPool)
+            {
+                
+                P1DicePool.Add(d);
+            }
+            P1DiscardPool.Clear();
+            if (P1Hand.Count < 10)
+            {
+                
                 //pull a random card from deck
                 int pull = Random.Range(0, P1DicePool.Count);
                 StartCoroutine(RollToHand(P1DicePool[pull]));
@@ -287,44 +323,178 @@ public class BattleManager : MonoBehaviour
                 P2DicePool.RemoveAt(pull);
             }
         }
+        else
+        { //shuffle
+            foreach (GameObject d in P2DiscardPool)
+            {
+                P2DicePool.Add(d);
+            }
+            P2DiscardPool.Clear();
+            if (P2Hand.Count < 10)
+            {
+                
+                //pull a random card from deck
+                int pull = Random.Range(0, P2DicePool.Count);
+                StartCoroutine(RollToHand2(P2DicePool[pull]));
+                P2DicePool.RemoveAt(pull);
+            }
+        }
     }
 
 
     IEnumerator RollToHand(GameObject newDie)
     {
-        GameObject newHandDie = Instantiate(newDie, P1DieSpawnPoint.position, Quaternion.identity);
-        P1Hand.Add(newHandDie);
-        newHandDie.tag = "P1";
-        float t = 0; 
+        //grab die and add to hand list, tag it 
+        newDie.transform.position =  P1DieSpawnPoint.position;
+        newDie.SetActive(true);
+        P1Hand.Add(newDie);
+        newDie.tag = "P1";
+        float t = 0;
         while (t < 1)
         {
-
-            newHandDie.transform.position = Vector3.LerpUnclamped(P1DieSpawnPoint.position,
-                P1DieHandPos[P1Hand.IndexOf(newHandDie)].position, easeInCurve.Evaluate(t));
+            newDie.transform.position = Vector3.LerpUnclamped(P1DieSpawnPoint.position,
+                P1DieHandPos[P1Hand.IndexOf(newDie)].position, easeInCurve.Evaluate(t));
             t += Time.deltaTime * 2;
-                yield return 0;
+            yield return 0;
         }
-        newHandDie.layer = 9;
+        newDie.layer = 9;
     }
 
     IEnumerator RollToHand2(GameObject newDie)
     {
-        GameObject newHandDie = Instantiate(newDie, P2DieSpawnPoint.position, Quaternion.identity);
-        P2Hand.Add(newHandDie);
-        newHandDie.tag = "P2";
+        //grab die and add to hand list, tag it 
+        newDie.transform.position = P2DieSpawnPoint.position;
+        newDie.SetActive(true);
+        P2Hand.Add(newDie);
+        newDie.tag = "P2";
         float t = 0;
         while (t < 1)
         {
 
-            newHandDie.transform.position = Vector3.LerpUnclamped(P2DieSpawnPoint.position,
-                P2DieHandPos[P2Hand.IndexOf(newHandDie)].position, easeInCurve.Evaluate(t));
+            newDie.transform.position = Vector3.LerpUnclamped(P2DieSpawnPoint.position,
+                P2DieHandPos[P2Hand.IndexOf(newDie)].position, easeInCurve.Evaluate(t));
             t += Time.deltaTime * 2;
             yield return 0;
         }
-        newHandDie.layer = 9;
+        newDie.layer = 9;
     }
 
-    IEnumerator FirstDraw()
+    IEnumerator DiscardHand()
+    {
+        //fade objects
+        float t = 0;
+        Color lastColor = P1Hand[0].GetComponent<MeshRenderer>().material.color;
+        while (t < 1)
+        {
+            foreach (GameObject d in P1Hand)
+            {
+                d.GetComponent<MeshRenderer>().material.color = Color.LerpUnclamped(lastColor,
+                new Color(lastColor.r, lastColor.g, lastColor.b, 0), easeInCurve.Evaluate(t));
+
+            }
+            t += Time.deltaTime * 2;
+            yield return 0;
+        }
+
+        //add to discard and destroy
+        foreach (GameObject d in P1Hand)
+        {
+            P1DiscardPool.Add(d);
+            d.SetActive(false);
+            d.GetComponent<MeshRenderer>().material.color = lastColor;
+        }
+
+
+        P1Hand.Clear();
+        yield return new WaitForSeconds(1);
+        StartCoroutine(DrawHand());
+
+
+    }
+
+    IEnumerator DiscardHand2()
+    {
+        //Fade objects
+        float t = 0;
+        Color lastColor = P2Hand[0].GetComponent<MeshRenderer>().material.color;
+        while (t < 1)
+        {
+            foreach (GameObject d in P2Hand)
+            {
+                d.GetComponent<MeshRenderer>().material.color = Color.LerpUnclamped(lastColor,
+                 new Color(lastColor.r, lastColor.g, lastColor.b, 0), easeInCurve.Evaluate(t));
+            }
+            t += Time.deltaTime * 2;
+            yield return 0;
+        }
+        //add to discard and destroy
+        foreach (GameObject d in P2Hand)
+        {
+            P2DiscardPool.Add(d);
+           d.SetActive(false);
+            d.GetComponent<MeshRenderer>().material.color = lastColor;
+        }
+        P2Hand.Clear();
+
+    }
+
+    IEnumerator P1DiscardField()
+    {
+        new WaitForSeconds(.5f);
+
+        float t = 0;
+        
+            Color lastColor = P1FieldDice[0].GetComponent<MeshRenderer>().material.color;
+            while (t < 1)
+            {
+                foreach (GameObject d in P1FieldDice)
+                {
+                    d.GetComponent<MeshRenderer>().material.color = Color.LerpUnclamped(lastColor,
+                         new Color(lastColor.r, lastColor.g, lastColor.b, 0), easeInCurve.Evaluate(t));
+                }
+                t += Time.deltaTime * 2;
+                yield return 0;
+            }
+
+        foreach (GameObject d in P1FieldDice)
+        {
+            P1DiscardPool.Add(d);
+            d.SetActive(false);
+            d.GetComponent<MeshRenderer>().material.color = lastColor;
+        }
+
+            P1FieldDice.Clear();
+    }
+    IEnumerator P2DiscardField()
+    {
+        new WaitForSeconds(.5f);
+
+        float t = 0;
+
+        Color lastColor = P2FieldDice[0].GetComponent<MeshRenderer>().material.color;
+        while (t < 1)
+        {
+            foreach (GameObject d in P2FieldDice)
+            {
+                d.GetComponent<MeshRenderer>().material.color = Color.LerpUnclamped(lastColor,
+                     new Color(lastColor.r, lastColor.g, lastColor.b, 0), easeInCurve.Evaluate(t));
+            }
+            t += Time.deltaTime * 2;
+            yield return 0;
+        }
+
+        foreach (GameObject d in P2FieldDice)
+        {
+            P2DiscardPool.Add(d);
+            d.SetActive(false);
+            d.GetComponent<MeshRenderer>().material.color = lastColor;
+        }
+
+        P2FieldDice.Clear();
+    }
+
+
+    IEnumerator DrawHand()
     {
         DrawDie(); DrawDie2();
         yield return new WaitForSeconds(.1f);
@@ -335,33 +505,25 @@ public class BattleManager : MonoBehaviour
         DrawDie(); DrawDie2();
         yield return new WaitForSeconds(.1f);
         DrawDie(); DrawDie2();
-        yield return new WaitForSeconds(.1f);
-        DrawDie(); DrawDie2();
-        yield return new WaitForSeconds(.1f);
-        DrawDie(); DrawDie2();
-        yield return new WaitForSeconds(.1f);
-        DrawDie(); DrawDie2();
-        yield return new WaitForSeconds(.1f);
-        DrawDie(); DrawDie2();
-        yield return new WaitForSeconds(.1f);
-        DrawDie(); DrawDie2();
+
     }
 
 
 
 
-   public void endTurn()
+    public void endTurn()
     {
-        foreach (GameObject d in Roll.LoadedDice)
+       /* foreach (GameObject d in Roll.LoadedDice)
         {
             if (playerTurn == "P1")
             {
                 P1DiscardPool.Add(d);
-            } else
+            }
+            else
             {
                 P2DiscardPool.Add(d);
             }
-        }
+        }*/
         Roll.rolledDice = false;
         Roll.LoadedDice.Clear();
 
@@ -373,18 +535,34 @@ public class BattleManager : MonoBehaviour
         {
             playerTurn = "P2";
             turnCounter++;
-        } else
+        }
+        else
         {
             playerTurn = "P1";
             turnCounter++;
         }
-
-
-       
     }
+    /* void startTurn()
+     {
+         if (playerTurn == "P1")
+             DiscardHand();
+         else
+             DiscardHand2();
+     }*/
 
     private void Reset()
     {
+
+        if (P1Hand.Count != 0)
+            StartCoroutine(DiscardHand());
+        if (P2Hand.Count != 0)
+            StartCoroutine(DiscardHand2());
+        if (P1FieldDice.Count != 0)
+            StartCoroutine(P1DiscardField());
+        if (P2FieldDice.Count != 0)
+            StartCoroutine(P2DiscardField());
+
+
         //Reset
         RolledAttackDiceP1.Clear();
         RolledAttackDiceP2.Clear();
@@ -393,7 +571,8 @@ public class BattleManager : MonoBehaviour
         RolledHealDiceP1.Clear();
         RolledHealDiceP2.Clear();
 
-        
+
+
     }
 
 

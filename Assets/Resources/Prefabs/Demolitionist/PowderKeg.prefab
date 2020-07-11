@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 5677680050601645004}
   - component: {fileID: 1922758537896124360}
   - component: {fileID: 4546799595551986839}
+  - component: {fileID: 6495201690013795006}
   m_Layer: 0
-  m_Name: Explodingd8
+  m_Name: PowderKeg
   m_TagString: ExploadingDie
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,3 +112,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6495201690013795006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501421047069707478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad96901e10699704cb0e64495c72e506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  exploaded: 0
+  rollNumber: 0
