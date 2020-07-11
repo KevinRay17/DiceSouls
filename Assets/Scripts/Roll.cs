@@ -5,7 +5,7 @@ using UnityEngine;
 public class Roll : MonoBehaviour
 {
 
-    public List<GameObject> LoadedDice = new List<GameObject>();
+    public static List<GameObject> LoadedDice = new List<GameObject>();
    // public List<Rigidbody> DiceRB = new List<Rigidbody>();
 
     int handDiceMask = 1 << 9;
@@ -17,14 +17,18 @@ public class Roll : MonoBehaviour
 
 //     public List<GameObject> LoadedDice = new List<GameObject>();
 
-    public Transform throwPoint;
+    Transform throwPoint;
+    Transform throwPoint2;
     public AnimationCurve animCurve;
     GameObject heldDie;
     Vector3 lastDieLocation;
     // Start is called before the first frame update
     void Start()
     {
-        
+        throwPoint = GameObject.Find("ThrowPoint").transform;
+        throwPoint2 = GameObject.Find("ThrowPoint2").transform;
+
+
     }
 
     // Update is called once per frame
@@ -33,22 +37,9 @@ public class Roll : MonoBehaviour
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (!rolledDice)
-        {   
-            if (Input.GetMouseButtonDown(2))
-            {
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
-                {
-                    holdingDice = true;
+        {  
 
-                    foreach (GameObject d in LoadedDice)
-                    {
-                        d.GetComponent<Rigidbody>().useGravity = false;
-                    }
-
-                }
-            }
-
-            if (Input.GetMouseButtonUp(2))
+            if (Input.GetMouseButtonDown(0) && holdingDice)
             {
                 holdingDice = false;
                 var v3 = Input.mousePosition;
@@ -73,7 +64,11 @@ public class Roll : MonoBehaviour
             {
                 foreach (GameObject d in LoadedDice)
                 {
+                    if (BattleManager.playerTurn == "P1")
                     d.GetComponent<Rigidbody>().AddForce((throwPoint.position - d.transform.position) / 8, ForceMode.Impulse);
+                    else 
+                        d.GetComponent<Rigidbody>().AddForce((throwPoint2.position - d.transform.position) / 8, ForceMode.Impulse);
+                    
                     d.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(50, 100), Random.Range(50, 100), Random.Range(50, 100)), ForceMode.Impulse);
                 }
             }
@@ -84,7 +79,7 @@ public class Roll : MonoBehaviour
         //Pick Up Dice From Hand
         if (Input.GetMouseButtonDown(0) && heldDie == null)
         {
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, handDiceMask))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, handDiceMask) && hit.transform.gameObject.CompareTag(BattleManager.playerTurn))
             {
                 hit.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
                 hit.transform.gameObject.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(50, 100), Random.Range(50, 100), Random.Range(50, 100)), ForceMode.Impulse);
@@ -102,9 +97,13 @@ public class Roll : MonoBehaviour
             heldDie.transform.position = v3;
 
 
-            if (Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, Mathf.Infinity, setBoardMask)){
+            if (Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, Mathf.Infinity, setBoardMask) && 
+                hit.transform.gameObject.CompareTag(BattleManager.playerTurn))
+            {
                 StartCoroutine(SetDie(heldDie, hit.transform));
-            } else if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, Mathf.Infinity, loadBoardMask)){
+            } else if(Input.GetMouseButtonDown(0) && Physics.Raycast(ray, out hit, Mathf.Infinity, loadBoardMask) &&
+                hit.transform.gameObject.CompareTag(BattleManager.playerTurn))
+            {
                 StartCoroutine(LoadDie(heldDie, hit.transform));
             }
 
@@ -198,5 +197,25 @@ public class Roll : MonoBehaviour
         rolledDice = true;
     }
 
+   public void PressedRoll()
+    {
+
+        holdingDice = true;
+
+        foreach (GameObject d in LoadedDice)
+        {
+            d.GetComponent<Rigidbody>().useGravity = false;
+
+            if (d.CompareTag("P1"))
+            {
+                BattleManager.RolledAttackDiceP1.Add(d);
+            }
+            else BattleManager.RolledAttackDiceP2.Add(d);
+
+
+
+        }
+       
+    }
    
 }

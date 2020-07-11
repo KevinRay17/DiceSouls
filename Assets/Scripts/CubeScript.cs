@@ -32,12 +32,14 @@ public class CubeScript : MonoBehaviour
         D6[Vector3.forward] = 3;
         D6[Vector3.back] = 4;
 
-        BattleManager.RolledDiceP1.Add(gameObject);
+       
     }
 
     void Start()
     {
-        
+
+   
+
     }
 
     // Update is called once per frame
