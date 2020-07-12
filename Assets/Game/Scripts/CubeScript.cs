@@ -15,6 +15,8 @@ public class CubeScript : MonoBehaviour
     public int rollNumber;
     int maxRoll;
 
+    public string Title, Description, DieSize, Property, ActionCost;
+
     public enum dieTags
     {
         Explode,
@@ -31,8 +33,8 @@ public class CubeScript : MonoBehaviour
         Defense,
 
 
-
     }
+
    public List<dieTags> myTags = new List<dieTags>();
 
 
@@ -97,6 +99,7 @@ public class CubeScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+       
         //Debug.Log("Current number: " + getNumber());
 
        // Debug.Log(d6.name);
@@ -173,6 +176,14 @@ public class CubeScript : MonoBehaviour
         yield return 0;
         gameObject.tag = tagName;
     }
+
+
+    //All Set actions
+    public void SetDie()
+    {
+
+    }
+
 
 
 

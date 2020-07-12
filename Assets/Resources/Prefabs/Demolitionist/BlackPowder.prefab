@@ -126,3 +126,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exploaded: 0
   rollNumber: 0
+  Title: BlackPowder
+  Description: 'Explode ___ ___ Set: The next die you load gains Explode'
+  DieSize: 1d4
+  Property: Wood
+  ActionCost: 1 A
+  myTags: 040000000a00000000000000

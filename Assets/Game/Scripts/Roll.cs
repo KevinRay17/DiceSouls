@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Roll : MonoBehaviour
 {
-
+    public static Roll instance;
     public static List<GameObject> LoadedDice = new List<GameObject>();
    // public List<Rigidbody> DiceRB = new List<Rigidbody>();
 
@@ -20,15 +20,14 @@ public class Roll : MonoBehaviour
     Transform throwPoint;
     Transform throwPoint2;
     public AnimationCurve animCurve;
-    GameObject heldDie;
+   public GameObject heldDie;
     Vector3 lastDieLocation;
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         throwPoint = GameObject.Find("ThrowPoint").transform;
         throwPoint2 = GameObject.Find("ThrowPoint2").transform;
-
-
     }
 
     // Update is called once per frame
@@ -85,6 +84,8 @@ public class Roll : MonoBehaviour
                 hit.transform.gameObject.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(50, 100), Random.Range(50, 100), Random.Range(50, 100)), ForceMode.Impulse);
                 heldDie = hit.transform.gameObject;
                 lastDieLocation = heldDie.transform.position;
+                DieDescription.instance.Deactivate();
+
             }
         } else if (Input.GetMouseButtonDown(1) && heldDie != null)
         {
@@ -227,9 +228,22 @@ public class Roll : MonoBehaviour
 
             if (d.CompareTag("P1"))
             {
-                BattleManager.RolledAttackDiceP1.Add(d);
+                if (d.GetComponent<CubeScript>().myTags.Contains(CubeScript.dieTags.Attack))
+                {
+                    BattleManager.RolledAttackDiceP1.Add(d);
+                }
+                else if (d.GetComponent<CubeScript>().myTags.Contains(CubeScript.dieTags.Defense))
+                {
+                    BattleManager.RolledDefenseDiceP1.Add(d);
+                }
             }
-            else BattleManager.RolledAttackDiceP2.Add(d);
+            else if (d.GetComponent<CubeScript>().myTags.Contains(CubeScript.dieTags.Attack))
+            {
+                BattleManager.RolledAttackDiceP2.Add(d);
+            } else if (d.GetComponent<CubeScript>().myTags.Contains(CubeScript.dieTags.Defense))
+            {
+                BattleManager.RolledDefenseDiceP2.Add(d);
+            }
 
 
 

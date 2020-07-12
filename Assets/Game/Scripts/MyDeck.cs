@@ -9,16 +9,16 @@ public class MyDeck : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Deck.Add(Resources.Load<GameObject>("Prefabs/d6"));
-        Deck.Add(Resources.Load<GameObject>("Prefabs/d6"));
-        Deck.Add(Resources.Load<GameObject>("Prefabs/d6"));
-        Deck.Add(Resources.Load<GameObject>("Prefabs/d6"));
-        Deck.Add(Resources.Load<GameObject>("Prefabs/d4"));
-        Deck.Add(Resources.Load<GameObject>("Prefabs/d4"));
-        Deck.Add(Resources.Load<GameObject>("Prefabs/d4"));
-        Deck.Add(Resources.Load<GameObject>("Prefabs/d4"));
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/PowderKeg")); //d8
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/BlackPowder")); //d6
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/BlackPowder")); //d4
 
     }
 
