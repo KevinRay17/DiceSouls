@@ -429,7 +429,7 @@ public class BattleManager : MonoBehaviour
         }
         foreach (GameObject d in P2SetDice)
         {
-            P1DiscardPool.Add(d);
+            P2DiscardPool.Add(d);
             d.SetActive(false);
             d.GetComponent<MeshRenderer>().material.color = lastColor;
         }

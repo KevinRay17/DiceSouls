@@ -54,7 +54,7 @@ public class Roll : MonoBehaviour
                 {
                     d.GetComponent<Rigidbody>().velocity = Vector3.zero;
                     d.GetComponent<Rigidbody>().useGravity = true;
-                    d.GetComponent<Rigidbody>().AddForce((v3 - d.transform.position) * 1.75f, ForceMode.Impulse);
+                    d.GetComponent<Rigidbody>().AddForce((v3 - d.transform.position) * 1.8f, ForceMode.Impulse);
                     d.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(50, 100), Random.Range(50, 100), Random.Range(50, 100)), ForceMode.Impulse);
                 }
 
@@ -161,6 +161,7 @@ public class Roll : MonoBehaviour
         }
 
         BattleManager.playerActions -= loadDie.GetComponent<CubeScript>().actions;
+        loadDie.GetComponent<CubeScript>().rolled = true;
 
 
     }

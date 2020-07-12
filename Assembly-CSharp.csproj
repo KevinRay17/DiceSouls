@@ -63,6 +63,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Dice2\Scripts\DiceGlow.cs" />
+    <Compile Include="Assets\Dice2\Scripts\DiceStat.cs" />
     <Compile Include="Assets\Game\Scripts\BattleManager.cs" />
     <Compile Include="Assets\Game\Scripts\CubeScript.cs" />
     <Compile Include="Assets\Game\Scripts\DieDescription.cs" />
@@ -674,17 +676,11 @@
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/Kevin/Desktop/ProjectsUnity/DiceBuilder/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
-    <Reference Include="Unity.Postprocessing.Editor">
-      <HintPath>C:/Users/Kevin/Desktop/ProjectsUnity/DiceBuilder/Library/ScriptAssemblies/Unity.Postprocessing.Editor.dll</HintPath>
-    </Reference>
     <Reference Include="Unity.Rider.Editor">
       <HintPath>C:/Users/Kevin/Desktop/ProjectsUnity/DiceBuilder/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary">
       <HintPath>C:/Users/Kevin/Desktop/ProjectsUnity/DiceBuilder/Library/ScriptAssemblies/Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Postprocessing.Runtime">
-      <HintPath>C:/Users/Kevin/Desktop/ProjectsUnity/DiceBuilder/Library/ScriptAssemblies/Unity.Postprocessing.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.ShaderGraph.Editor">
       <HintPath>C:/Users/Kevin/Desktop/ProjectsUnity/DiceBuilder/Library/ScriptAssemblies/Unity.ShaderGraph.Editor.dll</HintPath>

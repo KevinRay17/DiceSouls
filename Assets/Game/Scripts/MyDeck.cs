@@ -13,12 +13,16 @@ public class MyDeck : MonoBehaviour
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Anchor"));//d6
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Anchor"));//d6
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/PowderKeg")); //d8
         Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/BlackPowder")); //d4
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/EarthShaker")); //d10
+        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/CannonBall")); //d12
 
     }
 
