@@ -131,4 +131,8 @@ MonoBehaviour:
   DieSize: 1d4
   Property: Wood
   ActionCost: 1 A
+  actions: 1
+  cardImage: {fileID: 0}
+  dieType: {fileID: 0}
+  dieSet: {fileID: 0}
   myTags: 040000000b000000

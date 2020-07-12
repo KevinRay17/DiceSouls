@@ -126,9 +126,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   exploaded: 0
   rollNumber: 0
-  Title: BlackPowder
-  Description: 'Explode ___ ___ Set: The next die you load gains Explode'
+  Title: Black Powder
+  Description: 'Explode ___ ___ Set: The rest of your dice you load this turn gains
+    Explode'
   DieSize: 1d4
   Property: Wood
   ActionCost: 1 A
-  myTags: 040000000a00000000000000
+  actions: 1
+  cardImage: {fileID: 0}
+  dieType: {fileID: 0}
+  dieSet: {fileID: 0}
+  myTags: 040000000a000000000000000c000000

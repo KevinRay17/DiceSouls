@@ -32,6 +32,9 @@ public class BattleManager : MonoBehaviour
     public static List<GameObject> P1FieldDice = new List<GameObject>();
     public static List<GameObject> P2FieldDice = new List<GameObject>();
 
+    public static List<GameObject> P1SetDice = new List<GameObject>();
+    public static List<GameObject> P2SetDice = new List<GameObject>();
+
 
 
 
@@ -67,6 +70,8 @@ public class BattleManager : MonoBehaviour
     int turnCounter = 0;
     int roundCounter = 1;
     int startPlayer;
+
+    public static int playerActions = 3;
 
 
 
@@ -363,7 +368,11 @@ public class BattleManager : MonoBehaviour
             {
                 d.GetComponent<MeshRenderer>().material.color = Color.LerpUnclamped(lastColor,
                 new Color(lastColor.r, lastColor.g, lastColor.b, 0), easeInCurve.Evaluate(t));
-
+            }
+            foreach (GameObject d in P1SetDice)
+            {
+                d.GetComponent<MeshRenderer>().material.color = Color.LerpUnclamped(lastColor,
+                new Color(lastColor.r, lastColor.g, lastColor.b, 0), easeInCurve.Evaluate(t));
             }
             t += Time.deltaTime * 2;
             yield return 0;
@@ -376,9 +385,15 @@ public class BattleManager : MonoBehaviour
             d.SetActive(false);
             d.GetComponent<MeshRenderer>().material.color = lastColor;
         }
+        foreach (GameObject d in P1SetDice)
+        {
+            P1DiscardPool.Add(d);
+            d.SetActive(false);
+            d.GetComponent<MeshRenderer>().material.color = lastColor;
+        }
 
 
-        P1Hand.Clear();
+            P1Hand.Clear();
         yield return new WaitForSeconds(1);
         StartCoroutine(DrawHand());
 
@@ -397,6 +412,11 @@ public class BattleManager : MonoBehaviour
                 d.GetComponent<MeshRenderer>().material.color = Color.LerpUnclamped(lastColor,
                  new Color(lastColor.r, lastColor.g, lastColor.b, 0), easeInCurve.Evaluate(t));
             }
+            foreach (GameObject d in P2SetDice)
+            {
+                d.GetComponent<MeshRenderer>().material.color = Color.LerpUnclamped(lastColor,
+                new Color(lastColor.r, lastColor.g, lastColor.b, 0), easeInCurve.Evaluate(t));
+            }
             t += Time.deltaTime * 2;
             yield return 0;
         }
@@ -405,6 +425,12 @@ public class BattleManager : MonoBehaviour
         {
             P2DiscardPool.Add(d);
            d.SetActive(false);
+            d.GetComponent<MeshRenderer>().material.color = lastColor;
+        }
+        foreach (GameObject d in P2SetDice)
+        {
+            P1DiscardPool.Add(d);
+            d.SetActive(false);
             d.GetComponent<MeshRenderer>().material.color = lastColor;
         }
         P2Hand.Clear();
@@ -490,6 +516,8 @@ public class BattleManager : MonoBehaviour
         P2DefenseTotal = 0;
         P1FieldDice.Clear();
         P2FieldDice.Clear();
+
+        playerActions = 3;
 
         //Player 1 
         foreach (GameObject d in RolledAttackDiceP1)
@@ -612,6 +640,7 @@ public class BattleManager : MonoBehaviour
             P1DiscardPool.Add(d);
         }
 
+        Roll.addExplode = false;
 
         //Reset
         RolledAttackDiceP1.Clear();
@@ -620,8 +649,6 @@ public class BattleManager : MonoBehaviour
         RolledDefenseDiceP2.Clear();
         RolledHealDiceP1.Clear();
         RolledHealDiceP2.Clear();
-
-
 
     }
 

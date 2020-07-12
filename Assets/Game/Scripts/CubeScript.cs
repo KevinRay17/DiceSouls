@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CubeScript : MonoBehaviour
 {
@@ -16,6 +17,11 @@ public class CubeScript : MonoBehaviour
     int maxRoll;
 
     public string Title, Description, DieSize, Property, ActionCost;
+    public int actions;
+    [HideInInspector]
+    public Sprite cardImage, dieType, dieSet;
+
+    GameObject explosion;
 
     public enum dieTags
     {
@@ -31,6 +37,7 @@ public class CubeScript : MonoBehaviour
         d20,
         Attack,
         Defense,
+        Set,
 
 
     }
@@ -40,7 +47,28 @@ public class CubeScript : MonoBehaviour
 
     void Awake()
     {
-         d6 = Resources.Load<GameObject>("Prefabs/d6");
+        if (myTags.Contains(dieTags.d4))
+        {
+            cardImage = Resources.Load<Sprite>("Sprites/d4");
+        } else if (myTags.Contains(dieTags.d6))
+        {
+            cardImage = Resources.Load<Sprite>("Sprites/d6");
+        }
+        else if (myTags.Contains(dieTags.d8))
+        {
+            cardImage = Resources.Load<Sprite>("Sprites/d8");
+        }
+
+        if (myTags.Contains(dieTags.Attack))
+        {
+            dieType = Resources.Load<Sprite>("Sprites/Attack");
+        }
+        else if (myTags.Contains(dieTags.Defense))
+        {
+            dieType = Resources.Load<Sprite>("Sprites/Defense");
+        }
+
+            //d6 = Resources.Load<GameObject>("Prefabs/d6");
 
         rb = gameObject.GetComponent<Rigidbody>();
         self = this.gameObject;
@@ -78,12 +106,14 @@ public class CubeScript : MonoBehaviour
             maxRoll = 20;
         }
 
-
+        exploaded = false;
 
     }
 
     void Start()
     {
+        explosion = Resources.Load<GameObject>("Prefabs/Demolitionist/Explosion");
+
         if (gameObject.tag == "P1")
         {
             GetComponent<MeshRenderer>().material = Resources.Load<Material>("Mats/Demo");
@@ -113,6 +143,8 @@ public class CubeScript : MonoBehaviour
             {
                 GameObject newExpDie = Instantiate(self, this.transform.position, Quaternion.identity);
                 newExpDie.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(50, 100), Random.Range(50, 100), Random.Range(50, 100)), ForceMode.Impulse);
+                Instantiate(explosion, transform.position, Quaternion.Euler(new Vector3(-90,0,0)));
+
 
                 if (myTags.Contains(dieTags.Attack))
                 {
@@ -181,7 +213,20 @@ public class CubeScript : MonoBehaviour
     //All Set actions
     public void SetDie()
     {
+        if (Title == "Black Powder")
+        {
+            Roll.addExplode = true;Debug.Log("had");
+        }
 
+
+        if (BattleManager.playerTurn == "P1")
+        {
+            BattleManager.P1SetDice.Add(gameObject);
+        }
+        else
+        {
+            BattleManager.P2SetDice.Add(gameObject);
+        }
     }
 
 
