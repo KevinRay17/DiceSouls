@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/Battle.unity
     guid: ea463c01120877e409c45200973a559b
+  - enabled: 0
+    path: Assets/Dice2/Scene/DiceTest.unity
+    guid: debb029a55f9bb045831b21e7f348099
   m_configObjects: {}

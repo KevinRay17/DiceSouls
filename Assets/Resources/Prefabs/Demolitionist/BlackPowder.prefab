@@ -679,4 +679,5 @@ MonoBehaviour:
   cardImage: {fileID: 0}
   dieType: {fileID: 0}
   dieSet: {fileID: 0}
+  rolled: 0
   myTags: 040000000a000000000000000c000000

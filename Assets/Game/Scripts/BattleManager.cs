@@ -152,6 +152,8 @@ public class BattleManager : MonoBehaviour
         P2DmgText.text = "" + P2AttackTotal;
         P1DefenseText.text = "" + P1DefenseTotal;
         P2DefenseText.text = "" + P2DefenseTotal;
+        Debug.Log(P1CurrentHealth);
+        Debug.Log(P2CurrentHealth);
 
     }
 

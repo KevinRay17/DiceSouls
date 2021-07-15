@@ -161,12 +161,12 @@ public class CubeScript : MonoBehaviour
 
         // Debug.Log(d6.name);
         //if die has stopped rolling, do an effect
-        if (Roll.rolledDice && rb.velocity == Vector3.zero && gameObject.tag == BattleManager.playerTurn)
+        if (Roll.rolledDice && rb.velocity == Vector3.zero)
         {
             rollNumber = gameObject.GetComponent<DiceStat>().side;
 
             //exploading die
-            if (myTags.Contains(dieTags.Explode) && rollNumber == maxRoll && !exploaded && rolled)
+            if (myTags.Contains(dieTags.Explode) && rollNumber == maxRoll && !exploaded && rolled && gameObject.tag == BattleManager.playerTurn)
             {
                 GameObject newExpDie = Instantiate(self, this.transform.position, Quaternion.identity);
                 newExpDie.GetComponent<Rigidbody>().AddTorque(new Vector3(Random.Range(50, 100), Random.Range(50, 100), Random.Range(50, 100)), ForceMode.Impulse);
@@ -311,11 +311,11 @@ public class CubeScript : MonoBehaviour
             if (BattleManager.playerTurn == "P1" && collision.gameObject.CompareTag("P2") && collision.gameObject.layer == 9)
             {
                 Debug.Log("pog");
-                collision.gameObject.GetComponent<Rigidbody>().AddForce((collision.gameObject.transform.position - transform.position) * 100, ForceMode.Impulse);
+                collision.gameObject.GetComponent<Rigidbody>().AddForce((collision.gameObject.transform.position - transform.position) * 50, ForceMode.Impulse);
             } else if (BattleManager.playerTurn == "P2" && collision.gameObject.CompareTag("P1") && collision.gameObject.layer == 9)
             {
                 Debug.Log("pog");
-                collision.gameObject.GetComponent<Rigidbody>().AddForce((collision.gameObject.transform.position - transform.position) * 100, ForceMode.Impulse);
+                collision.gameObject.GetComponent<Rigidbody>().AddForce((collision.gameObject.transform.position - transform.position) * 50, ForceMode.Impulse);
             }
         }
     }
