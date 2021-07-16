@@ -123,17 +123,17 @@ public class BattleManager : MonoBehaviour
         P2DefenseText = GameObject.Find("P2DefenseText").GetComponent<TMP_Text>();
 
 
-        for (int i = 0; i < MyDeck.Deck.Count; i++)
+        for (int i = 0; i < MyDeck.DeckP1.Count; i++)
         {
-            GameObject instancedDie = Instantiate(MyDeck.Deck[i]);
+            GameObject instancedDie = Instantiate(MyDeck.DeckP1[i]);
             P1DicePool.Add(instancedDie);
             instancedDie.SetActive(false);
          
         }
 
-        for (int i = 0; i < MyDeck.Deck.Count; i++)
+        for (int i = 0; i < MyDeck.DeckP2.Count; i++)
         {
-            GameObject instancedDie = Instantiate(MyDeck.Deck[i]);
+            GameObject instancedDie = Instantiate(MyDeck.DeckP2[i]);
             P2DicePool.Add(instancedDie);
             instancedDie.SetActive(false);
         }
@@ -270,6 +270,7 @@ public class BattleManager : MonoBehaviour
                 StartCoroutine(RollToHand(P1DicePool[pull]));
                 P1DicePool.RemoveAt(pull);
             }
+            //else discard pulled die?
         } else
         { //shuffle
             foreach (GameObject d in P1DiscardPool)

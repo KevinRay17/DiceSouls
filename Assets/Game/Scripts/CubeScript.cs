@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//This is where the effects of all the specific dice abilities are programmed, such as the Explode tag or special Set die functions.
+
 public class CubeScript : MonoBehaviour
 {
     Dictionary<Vector3, int> D6 = new Dictionary<Vector3, int>();

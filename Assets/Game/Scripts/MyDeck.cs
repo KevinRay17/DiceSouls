@@ -5,24 +5,43 @@ using UnityEngine;
 public class MyDeck : MonoBehaviour
 {
 
-    public static List<GameObject> Deck = new List<GameObject>();
+    public static List<GameObject> DeckP1 = new List<GameObject>();
+
+    public static List<GameObject> DeckP2 = new List<GameObject>();
     // Start is called before the first frame update
     void Awake()
     {
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Anchor"));//d6
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Anchor"));//d6
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/PowderKeg")); //d8
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/BlackPowder")); //d4
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/EarthShaker")); //d10
-        Deck.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/CannonBall")); //d12
+        DontDestroyOnLoad(this.gameObject);
+        //Starting Deck Test 1
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Anchor"));//d6
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Anchor"));//d6
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/PowderKeg")); //d8
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/BlackPowder")); //d4
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/EarthShaker")); //d10
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/CannonBall")); //d12
+
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Dynamite"));//d6
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Anchor"));//d6
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Anchor"));//d6
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/Gangplanks"));//d4
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/PowderKeg")); //d8
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/BlackPowder")); //d4
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/EarthShaker")); //d10
+        DeckP2.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/CannonBall")); //d12
 
     }
 
