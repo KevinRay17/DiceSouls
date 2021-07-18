@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MyDeck : MonoBehaviour
 {
-
+    
     public static List<GameObject> DeckP1 = new List<GameObject>();
 
     public static List<GameObject> DeckP2 = new List<GameObject>();
@@ -49,5 +50,11 @@ public class MyDeck : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void AddDie()
+    {
+        DeckP1.Add(Resources.Load<GameObject>("Prefabs/Demolitionist/BlackPowder")); //d4
+        Debug.Log("addedDie");
     }
 }
